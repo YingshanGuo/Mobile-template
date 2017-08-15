@@ -1,0 +1,291 @@
+
+/*字体大小是页面默认大小的100%，即16像素*/
+body{font-size:62.5%;font-family:"Microsoft YaHei",Arial; overflow-x:hidden; overflow-y:auto;margin: 0;padding: 0;}   
+
+/*样板*/
+.banner{
+	border:1px solid #ccc;
+}
+.banner ul{
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+.banner ul li{
+    height: 6rem;
+    width: 100%;
+    display: block; 
+    cursor: pointer; 
+}
+.banner-pic1{
+    background: url(../img/q51.jpg) no-repeat;
+    background-size: cover;
+    background-position:center;
+}
+.banner-pic2{
+    background: url(../img/q55.jpg) no-repeat;
+    background-size: cover;
+    background-position:center;
+}
+.banner-pic3{
+    background: url(../img/q52.jpg) no-repeat;
+    background-size: cover;
+    background-position:center;
+}
+.banner { position: relative; overflow: auto; }
+    .banner li { list-style: none; }
+        .banner ul li { float: left;cursor: pointer; }
+/*引导的小圆点*/
+.banner .dots {
+		position: absolute;
+		left: 0;
+		right: 0;
+		bottom: 0.05rem;
+        text-align: center;
+        padding: 0;
+        margin: 0;
+}
+.banner .dots li {
+    display: inline-block;
+    width: 0.2rem;
+    height: 0.2rem;
+    margin: 0 4px;
+    text-indent: -999em;
+    border: 2px solid #fff;
+    border-radius: 0.6rem;
+    cursor: pointer;
+    opacity: .4;
+    -webkit-transition: background .5s, opacity .5s;
+    -moz-transition: background .5s, opacity .5s;
+    transition: background .5s, opacity .5s;
+}
+.banner .dots li.active {
+    background: #fff;
+    opacity: 1;
+}
+
+#container{
+	width: 100%;
+	margin-top: 0.5rem;
+}
+.bb{
+	border:1px solid black;
+}
+.row{
+    position: relative;
+    clear: both;
+}
+.col-sm-4{
+    width: 33.33%;
+    display: inline-block;
+    position: relative;
+    float:left;
+}
+.col-sm-6{
+    width: 50%;
+    display: inline-block;
+    position: relative;
+    float:left;
+}
+.col-sm-8{
+    width:66.666%;
+    display: inline-block;
+    position: relative;
+    float:left;
+}
+#header{
+	display: flex;
+	width: 100%;
+	margin: 0 auto;
+	height:2rem;
+	position: relative;
+    justify-content: space-between;
+    border-bottom: 1px solid #ccc;
+}
+#login{
+	line-height:1rem;
+    position: absolute;
+    right: 0;
+}
+.nav{
+    height: 1.5rem;
+    width: 1.5rem;
+    display: inline-block;
+    background: url('../img/Category.png') no-repeat;
+    background-size: cover;
+    position: absolute;
+    right: 0.3rem;
+    transform: translate(0,-50%);
+    top: 50%;
+}
+.nav-ul li{
+	line-height:1rem;
+	display: inline-block;
+	padding: 0 0.5rem;
+	height:1rem;
+	color: black;
+}
+.nav-ul li:hover{
+	height:1rem;
+	line-height:1rem;
+	color: orange;
+	border-bottom: 3px solid orange;
+	background-color: #ccc;
+}
+.logo{
+	width:3rem;
+    height: 2rem;
+    display: inline-block;
+    background: url('../img/logo.png') no-repeat;
+    background-size: cover;
+}
+.ft-orange{
+	color: orange;
+}
+.profile-info{
+    max-width: 12rem;
+}
+#avator{
+	width:100%;
+	height:8rem;
+    display: block;
+	background: url('../img/avator.jpg')  no-repeat;
+    background-size: contain;
+}
+.avator-info{
+	margin: 1.2rem 0;
+    padding: 0 0.5rem;
+	position:relative;
+}
+.avator-name{
+	font-size: 0.8rem;
+    font-weight: bold;
+}
+.avator-year{
+    color: orange;
+    bottom: 0;
+    position: absolute;
+    right: 2rem;
+}
+.avator-star{
+    font-size: 0.8rem;
+	margin: 15px 0 ;
+}
+.avator-star div{
+	margin: 0 auto;
+	text-align: center;
+}
+.btn-sever{
+	width:100%;
+	text-align: center;
+	padding: 0.6rem 0;
+    margin: 0;
+	font-size: 1rem;
+	color: white;
+	background-color: orange;
+	border-radius: 3px;
+    position: fixed;
+    bottom: 0;
+}
+.items{
+    clear: both;
+    margin:0.5rem 0;
+}
+.item{
+	margin-bottom:1rem;
+}
+.item-header{
+	color: orange;
+	font-size:0.8rem;
+	font-weight: bold;
+	border-bottom:3px solid orange;
+}
+.item-header p{
+    padding: 0;
+    margin: 0.5rem 0;
+}
+#info tr{
+	width:100%;
+	border-bottom: 1px solid #ccc;
+    padding: 0.8rem;
+}
+#info td{
+    height: 1rem;
+}
+.info-name{
+width:5rem;
+}
+.info-content{
+	width: 5rem;
+	color:orange;
+}
+.item-tag-name{
+	height:0.5rem;
+	line-height:0.5rem;
+}
+.item-tag{
+    padding: 0.25rem 0.25rem;
+    color: white;
+    background-color: #ccc;
+    margin-right: 0.5rem;
+    margin-bottom: 0.5rem;
+    display: inline-block;
+}
+.introduction p{
+    line-height:1.2rem;
+}
+.case ul{
+    list-style-type: none;
+    list-style: none;
+    margin: 0px;
+    padding: 15px;
+}
+.case li{
+	padding: 0.2rem 0;
+	list-style-type : disc;
+    line-height:1.2rem;
+}
+.blank{
+    height:2rem;
+}
+
+
+html {font-size : 20px;}
+@media only screen and (max-width: 401px){    
+    html {font-size: 20px !important;}
+      .info-name {
+        width: 25%;
+        display: inline-block;
+        box-sizing: border-box;
+    }
+    .info-content {
+        width: 75%;
+        display: inline-block;
+        box-sizing: border-box;
+    }
+}
+@media only screen and (min-width: 401px){    
+    html {font-size: 20px !important;}
+}
+@media only screen and (min-width: 428px){    
+    html {font-size: 20px !important}
+}
+@media only screen and (min-width: 481px){    
+    html {font-size: 20px !important;}
+    .banner ul li{
+        height: 5rem;
+    }
+}
+@media only screen and (min-width: 569px){    
+    html {font-size: 20px !important;}
+}
+@media only screen and (min-width: 641px){    
+    html {font-size: 20px !important;}
+    .banner ul li{
+        height: 8rem;
+    }
+    .con{
+        max-width: 548px;
+        margin: 0 auto;
+    }
+}
