@@ -1,113 +1,227 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta content="telephone=yes" name="format-detection" />
-  <meta name="apple-mobile-web-app-status-bar-style" content="white">
-  <meta name="x5-fullscreen" content="true">
-  <meta name="apple-touch-fullscreen" content="yes">
-  <title>Document</title>
-  <style>
-    *{margin:0;padding:0;}
-    .box{
-      height:200px;
-      width:100%;
+  <title>基于jQuery的移动轮播图（支持触屏）</title>
+  <style type="text/css">
+    .SlideWrapper {
+      width: 100%;
+      height: 11rem;
+      position: relative;
       overflow: hidden;
     }
-    .movebox{
-      height:200px;
-      width:9000px;
-      padding:0;
-      position:relative;
-      left:0;
+    
+    .Slide {
+      width: 400%;
+      height: 100%;
+      font-size: 0;
+      position: absolute;
+      -webkit-transform: translate3d(0, 0, 0);
     }
-    .movebox li{
-      height:200px;
-      float:left;
-      list-style:none;
-      font-size:30px;
-      color:#fff;
+    
+    .SlideTransition {
+      -webkit-transition: all 0.5s 0s ease-in-out;
     }
-
+    
+    .Slide_img {
+      width: 100%;
+      height: 11rem;
+    }
   </style>
-  <script>
-    window.onload = function(){
-
-      var moveX,   //手指滑动距离
-        endX,    //手指停止滑动时X轴坐标
-        cout = 0,  //滑动计数器
-        moveDir;  //滑动方向
-      var movebox = document.querySelector(".movebox");  //滑动对象
-      var Li = movebox.querySelectorAll("li");  //滑动对象item
-      var width = parseInt(window.getComputedStyle(movebox.parentNode).width);  //滑动对象item的宽度
-
-      movebox.style.width = (width*4) + "px"; //设置滑动盒子width
-      for(var i = 0; i < Li.length; i++){
-        Li[i].style.width = width + "px";  //设置滑动item的width，适应屏幕宽度
-      }
-
-      //触摸开始
-      function boxTouchStart(e){
-        var touch = e.touches[0];  //获取触摸对象
-        startX = touch.pageX;  //获取触摸坐标
-        endX = parseInt(movebox.style.webkitTransform.replace("translateX(", "")); //获取每次触摸时滑动对象X轴的偏移值
-      }
-
-      function boxTouchMove(e){
-        var touch = e.touches[0];
-        moveX = touch.pageX - startX;  //手指水平方向移动的距离
-
-        if(cout == 0 && moveX > 0){   //刚开始第一次向左滑动时
-          return false;
-        }
-
-        if(cout == 3 && moveX < 0){   //滑动到最后继续向右滑动时
-          return false;
-        }
-
-        movebox.style.webkitTransform = "translateX(" + (endX + moveX) + "px)"; //手指滑动时滑动对象随之滑动
-      }
-
-      function boxTouchEnd(e){
-        moveDir = moveX < 0 ? true : false;   //滑动方向大于0表示向左滑动，小于0表示向右滑动
-        //手指向左滑动
-        if(moveDir){
-
-          if(cout<3){
-            movebox.style.webkitTransform = "translateX(" + (endX-width) + "px)";
-            cout++;
-          }
-        //手指向右滑动
-        }else{
-          //滑动到初始状态时返回false
-          if(cout == 0){
-            return false;
-          }else{
-            movebox.style.webkitTransform = "translateX(" + (endX+width) + "px)";
-            cout--;
-          }
-        }
-      }
-
-      //滑动对象事件绑定
-      movebox.addEventListener("touchstart", boxTouchStart, false);
-      movebox.addEventListener("touchmove", boxTouchMove, false);
-      movebox.addEventListener("touchend", boxTouchEnd, false);
-    }
-  </script>
 </head>
 
-<body style="position:absolute;width:100%;overflow:hidden;">
-  <div class="box">
-    <ul class="movebox" style="transition-duration:0.2s;transform: translateX(-0px);">
-      <li style="background:red;">1</li>
-      <li style="background:yellow">2</li>
-      <li style="background:blue">3</li>
-      <li style="background:green">4</li>
-    </ul>
+<body>
+  <div class="SlideWrapper">
+    <div class="Slide SlideTransition">
+      <img class="Slide_img" src="./img/q51.jpg" />
+      <img class="Slide_img" src="./img/q52.jpg" />
+      <img class="Slide_img" src="./img/q53.jpg" />
+    </div>
+    <!--<div class="SlideStatus"></div>-->
   </div>
+  <script src="./js/common/jquery-3.2.1.js"></script>
+
+  <script type="text/javascript">
+    // 基于jQuery的移动端轮播插件，用zepto会有with问题
+    // 返回值  轮播对象
+    // 参数：
+    // SlideTransition    Transition的class名
+    // SlideWrapper    轮播的jQuery对象
+    // Slide     包裹轮播图片jQuery对象
+    // Slide_img   轮播图片列表jQuery对象
+    // timerNum     循环时间
+    function WSCMobileSlide(arg_obj) {
+      /*
+      参数:
+      el是jQuery选择器
+  
+      返回值:
+      matrix.m41是x值 number
+      matrix.m42是y值 number
+      参考链接 http://stackoverflow.com/questions/5968227/get-the-value-of-webkit-transform-of-an-element-with-jquery
+      参考链接 https://developer.apple.com/library/safari/documentation/AudioVideo/Reference/WebKitCSSMatrixClassReference/WebKitCSSMatrix/WebKitCSSMatrix.html#//apple_ref/javascript/instp/WebKitCSSMatrix/m41
+      */
+      function getTransform(el) {
+        var style = window.getComputedStyle($(el).get(0));
+        var matrix = new WebKitCSSMatrix(style.webkitTransform);
+        return matrix;
+      }
+
+      function slideAnimate(x, y) {
+        if (Math.abs(x) >= y) {
+          // $(".Slide").removeClass("SlideTransition");
+          $(".Slide").css("-webkit-transform", "translate3d(0,0,0)");
+        } else {
+          // $(".Slide").addClass("SlideTransition");
+          $(".Slide").css("-webkit-transform", "translate3d(" + x + "px,0,0)");
+        }
+      }
+
+      function getSlideTimer(timeNum) {
+        if (typeof (timeNum) == "undefined") {
+          timeNum = 3000;
+        }
+        var slideTimer = setInterval(function () {
+          var x = getTransform(".Slide").m41;
+          x = x - ImgWidth;
+          slideAnimate(x, endPosition);
+
+        }, timeNum);
+        return slideTimer;
+      }
+
+
+      function touchDragMe($element) {
+        var gundongX = 0;
+        var gundongY = 0;
+        var d = document;
+        var g = 'getElementById';
+        var moveEle = $element;
+        var stx = sty = etx = ety = curX = curY = 0;
+
+        moveEle.on("touchstart", function (event) { //touchstart
+          $element.removeClass(transitionName);
+          clearInterval(slideTimer);
+          var event = event.originalEvent;
+          gundongX = 0;
+          gundongY = 0;
+
+
+          // 元素当前位置
+          etx = parseInt(getT3d(moveEle, "x"));
+          ety = parseInt(getT3d(moveEle, "y"));
+
+          // 手指位置
+          stx = event.touches[0].pageX;
+          sty = event.touches[0].pageY;
+        });
+
+        moveEle.on("touchmove", function (event) {
+          var event = event.originalEvent;
+          // 防止拖动页面
+          event.preventDefault();
+
+          // 手指位置 减去 元素当前位置 就是 要移动的距离
+          gundongX = event.touches[0].pageX - stx;
+          gundongY = event.touches[0].pageY - sty;
+
+          // 目标位置 就是 要移动的距离 加上 元素当前位置
+          curX = gundongX + etx;
+          curY = gundongY + ety;
+
+          // 自由移动
+          // moveEle.style.webkitTransform = 'translate3d(' + (curX) + 'px, ' + (curY) + 'px,0px)';
+          // 只能移动Y轴方向
+          // var realMoveEle = moveEle[0];
+          moveEle[0].style.webkitTransform = 'translate3d(' + (curX) + 'px, ' + 0 + 'px,0px)';
+
+
+        });
+        moveEle.on("touchend", function (event) {
+          // 手指接触屏幕的位置
+          var oriX = etx;
+          var oriY = ety;
+
+          // 手指离开屏幕的位置
+          etx = curX;
+          ety = curY;
+
+          var slidePosition = 0;
+          for (var i = 0; i < ImgWidth_arr_length - 1; i++) {
+            if (Math.abs(etx) > ImgWidth_arr[i]) {
+
+              if (oriX > etx) {
+                // 左滑
+                slidePosition = -ImgWidth_arr[i + 1];
+              } else {
+                // 右滑
+                slidePosition = -ImgWidth_arr[i];
+              }
+            }
+
+          }
+          $element.addClass(transitionName);
+          slideAnimate(slidePosition, endPosition);
+          slideTimer = getSlideTimer(timerNum);
+        });
+
+        function getT3d(elem, ename) {
+          var elem = elem[0];
+          var str1 = elem.style.webkitTransform;
+          if (str1 == "") return "0";
+          str1 = str1.replace("translate3d(", "");
+          str1 = str1.replace(")", "");
+          var carr = str1.split(",");
+
+          if (ename == "x") return carr[0];
+          else if (ename == "y") return carr[1];
+          else if (ename == "z") return carr[2];
+          else return "";
+        }
+      }
+
+
+      var transitionName = arg_obj["SlideTransition"] || "SlideTransition";
+      var $SlideWrapper = arg_obj["SlideWrapper"] || $(".SlideWrapper");
+      var $Slide = arg_obj["Slide"] || $(".Slide");
+      var $Slide_img = arg_obj["Slide_img"] || $(".Slide_img");
+      var timerNum = arg_obj["timerNum"] || 3000;
+
+      $Slide_img.width($SlideWrapper.width());
+      $Slide_img.height($SlideWrapper.height());
+
+      var ImgWidth_arr_length = $Slide_img.length;
+      var ImgWidth = $Slide_img.width();
+
+
+      $Slide.width(ImgWidth * ImgWidth_arr_length);
+
+      var SlideWidth = $Slide.width();
+      // 轮播图终止位置
+      var endPosition = SlideWidth - ImgWidth;
+
+      var ImgWidth_arr = [];
+      for (var i = 0; i < ImgWidth_arr_length; i++) {
+        ImgWidth_arr.push(i * ImgWidth);
+      }
+      // console.log(ImgWidth_arr);
+
+      var slideTimer = getSlideTimer(timerNum);
+
+      touchDragMe($Slide, slideTimer);
+
+      return slideTimer;
+    }
+    WSCMobileSlide({
+      "SlideTransition": "SlideTransition",
+      "SlideWrapper": $(".SlideWrapper"),
+      "Slide": $(".Slide"),
+      "Slide_img": $(".Slide_img"),
+      "timerNum": 3000
+    });
+
+  </script>
 </body>
 
 </html>

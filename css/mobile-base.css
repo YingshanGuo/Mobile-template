@@ -13,7 +13,7 @@ body{font-size:62.5%;font-family:"Microsoft YaHei",Arial; overflow-x:hidden; ove
 }
 .banner ul li{
     height: 6rem;
-    width: 100%;
+    width: 33.3%;
     display: block; 
     cursor: pointer; 
 }
@@ -31,6 +31,31 @@ body{font-size:62.5%;font-family:"Microsoft YaHei",Arial; overflow-x:hidden; ove
     background: url(../img/q52.jpg) no-repeat;
     background-size: cover;
     background-position:center;
+}
+/*slide*/
+.SlideWrapper{
+    width: 100%;
+    height: 6rem;
+    position: relative;
+    overflow: hidden;
+}
+ /* for Chrome */
+.SlideWrapper::-webkit-scrollbar {
+    display: none;
+}
+.Slide{
+    width: 400%;
+    height: 100%;
+    font-size: 0;
+    position: absolute;
+    -webkit-transform:translate3d(0,0,0);
+}
+.SlideTransition{
+    -webkit-transition: all 0.5s 0s ease-in-out;
+}
+.Slide_img{
+    width: 100%;
+    height: 6rem;
 }
 .banner { position: relative; overflow: auto; }
     .banner li { list-style: none; }

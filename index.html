@@ -52,11 +52,11 @@
         <!--<span id="login">登录/注册</span>-->
     </div>
     <div class="con">
-        <div class="banner box">
-            <ul id="banner-con" class="movebox" style="transition-duration:0.2s;transform: translateX(-0px);">
-                <li class="banner-page banner-pic1"> </li>
-                <li class="banner-page banner-pic2"> </li>
-                <li class="banner-page banner-pic3"> </li>
+        <div class="banner SlideWrapper">
+            <ul id="banner-con" class="Slide SlideTransition" style="transition-duration:0.2s;transform: translateX(-0px);">
+                <li class="Slide_img banner-pic1"> </li>
+                <li class="Slide_img banner-pic2"> </li>
+                <li class="Slide_img banner-pic3"> </li>
             </ul>
         </div>
         <div style="margin: 8px;">
@@ -145,32 +145,11 @@
     <span class="btn-sever">定制服务</span>
 
     <script src="./js/common/jquery-3.2.1.js"></script>
-    <script src="./js/common/slip.js"></script>
-    <script src="./js/main.js"></script>
-    <script src="./js/common/unslider.js"></script>
-    <script src="./js/common/jquery.event.swipe.js"></script>
+    <script src="./js/mobile-slider.js"></script>
     <script>
         $(function () {
             // 文档就绪
             console.log("ready in index!");
-            $('.banner').unslider({
-                speed: 500,               //  The speed to animate each slide (in milliseconds)
-                delay: 3000,              //  The delay between slide animations (in milliseconds)
-                complete: function () { },  //  A function that gets called after every slide animation
-                keys: true,               //  Enable keyboard (left, right) arrow shortcuts
-                dots: true,               //  Display dot navigation
-                fluid: false
-            });
-            var banner = document.getElementById("banner-con");
-            slip('px', core, {
-                direction: 'x',   // 设置滑动方向,"x"为横向滑动，默认为纵向滑动。
-                perfect: true,  // 是否启用完美模式，true为启用，何为完美模式，更详细请看下文
-                no_bar: true,  // 是否启用模仿滚动条，true为不启用，默认启用
-                bar_no_hide: true,  // 是否在滚动停止时隐藏滚动条，true为不隐藏，默认隐藏
-                core_width: 1000,  // 滑动元素的宽度或者高度，单位为px（横向滑动时传递宽度，纵向滑动时传递高度），更详细请看下文
-                width: '100%',   // 滑动元素的父级元素的宽度或者高度，单位为px（横向滑动时传递宽度，纵向滑动时传递高度），更详细请看下文
-                bar_css: "background-color: rgba(8, 97, 149, 0.5);"  // 自定义滚动条的样式
-            });
         });
     </script>
 </body>
