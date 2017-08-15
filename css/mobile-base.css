@@ -243,6 +243,7 @@ width:5rem;
 .info-content{
 	width: 5rem;
 	color:orange;
+    line-height: 1rem;
 }
 .item-tag-name{
 	height:0.5rem;
