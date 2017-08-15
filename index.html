@@ -20,39 +20,8 @@
 
     <div id="header">
         <div class="logo"></div>
-        <!--<div class="nav"></div>-->
-        <!--<ul class="nav-ul" style="display: none;">
-            <a href="">
-                <li>首页</li>
-            </a>
-            <a href="">
-                <li>法律产品</li>
-            </a>
-            <a href="">
-                <li>云法务</li>
-            </a>
-            <a href="">
-                <li>法律文书</li>
-            </a>
-            <a href="">
-                <li>诉讼仲裁</li>
-            </a>
-            <a href="">
-                <li>精英律师</li>
-            </a>
-            <a href="">
-                <li>律师之家</li>
-            </a>
-            <a href="">
-                <li>创客商城</li>
-            </a>
-            <a href="">
-                <li>智库</li>
-            </a>
-        </ul>-->
         <div id="dl-menu" class=" dl-menuwrapper">
             <button id="dl-menu-button" class="nav"></button>
-            <!--<button id="dl-menu-button">Open Menu</button>-->
             <ul class="dl-menu">
                 <li><a href="#">首页</a></li>
                 <li><a href="#">法律产品</a></li>
@@ -166,8 +135,8 @@
     </div>
     <span class="btn-sever">定制服务</span>
 
-    <script src="./js/common/jquery-3.2.1.js"></script>
-    <script src="./js/mobile-slider.js"></script>
+    <script type="text/javascript" src="./js/common/jquery-3.2.1.js"></script>
+    <script type="text/javascript" src="./js/mobile-slider.js"></script>
     <script type="text/javascript" src="./js/modernizr.custom.js"></script>
     <script type="text/javascript" src="./js/jquery.dlmenu.js"></script>
     <script>
@@ -175,6 +144,9 @@
             // 文档就绪
             console.log("ready in index!");
             $('#dl-menu').dlmenu();
+            $('.btn-sever').click(function(){
+                alert('该律师已消失，请联系其他律师');
+            });
         });
     </script>
 </body>
