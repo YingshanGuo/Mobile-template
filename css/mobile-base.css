@@ -140,8 +140,8 @@ body{font-size:62.5%;font-family:"Microsoft YaHei",Arial; overflow-x:hidden; ove
     background-size: cover;
     position: absolute;
     right: 0.3rem;
-    transform: translate(0,-50%);
-    top: 50%;
+    /*transform: translate(0,-50%);*/
+    /*top: 50%;*/
 }
 .nav-ul li{
 	line-height:1rem;

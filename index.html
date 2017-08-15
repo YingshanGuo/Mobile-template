@@ -12,15 +12,17 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>手机网站</title>
+    <link rel="stylesheet" href="./css/base.css">
     <link rel="stylesheet" href="./css/mobile-base.css">
+    <link href="./css/component.css" rel="stylesheet" type="text/css" />
 </head>
 
 <body>
 
     <div id="header">
         <div class="logo"></div>
-        <div class="nav"></div>
-        <ul class="nav-ul" style="display: none;">
+        <!--<div class="nav"></div>-->
+        <!--<ul class="nav-ul" style="display: none;">
             <a href="">
                 <li>首页</li>
             </a>
@@ -48,7 +50,30 @@
             <a href="">
                 <li>智库</li>
             </a>
-        </ul>
+        </ul>-->
+        <div id="dl-menu" class=" dl-menuwrapper">
+            <button id="dl-menu-button" class="nav"></button>
+            <!--<button id="dl-menu-button">Open Menu</button>-->
+            <ul class="dl-menu">
+                <li><a href="#">首页</a></li>
+                <li><a href="#">法律产品</a></li>
+                <li><a href="#">云法务</a></li>
+                <li><a href="#">法律文书</a></li>
+                <li><a href="#">诉讼仲裁</a></li>
+                <li>
+                    <a href="Line">精英律师</a>
+                    <ul class="dl-submenu">
+                        <li class="dl-back"><a href="#">返回上一级</a></li>
+                        <li><a href="#">A律师</a></li>
+                        <li><a href="#">B律师</a></li>
+                        <li><a href="#">C律师</a></li>
+                    </ul>
+                </li>
+                <li><a href="#">律师之家</a></li>
+                <li><a href="#">创客商城</a></li>
+                <li><a href="#">智库</a></li>
+            </ul>
+        </div>
         <!--<span id="login">登录/注册</span>-->
     </div>
     <div class="con">
@@ -146,10 +171,13 @@
 
     <script src="./js/common/jquery-3.2.1.js"></script>
     <script src="./js/mobile-slider.js"></script>
+    <script type="text/javascript" src="./js/modernizr.custom.js"></script>
+    <script type="text/javascript" src="./js/jquery.dlmenu.js"></script>
     <script>
         $(function () {
             // 文档就绪
             console.log("ready in index!");
+            $('#dl-menu').dlmenu();
         });
     </script>
 </body>
